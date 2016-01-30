@@ -6,7 +6,7 @@ import java.util.Observable;
 /*
     Observer may want to have a boolean to let them know
     if they have the most recent data already.
-    if false, retrieve new data.
+    if false, retrieve new data.fqwsdf
 
  */
 public class AJC extends Observable {
