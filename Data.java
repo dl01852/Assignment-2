@@ -8,7 +8,7 @@ public class Data {
     private String businessData;
     private String sportsData;
     private String politicsData;
-    private String Technologydata;
+    private String technologyData;
 
 
     private boolean temperatureChanged;
@@ -19,7 +19,7 @@ public class Data {
 
     public Data()
     {
-        // this will be used to let the observers know if their data has changed or not.
+        // this will be used to let the observable if a particular data has changed. .
         temperatureChanged = false;
         businessDataChanged = false;
         sportsDataChanged = false;
@@ -27,24 +27,38 @@ public class Data {
         technologyDataChanged = false;
     }
 
-    // setters(changers in this case)
-    public void changeTemp(){temperatureChanged = temperatureChanged == false ?  true : false;}
-    public void changeBusiness(){businessDataChanged = businessDataChanged == false ? true : false; }
-    public void changeSports(){ sportsDataChanged = sportsDataChanged == false ? true : false; }
-    public void changePolitics() {politicsDataChanged = politicsDataChanged == false ? true : false;}
-    public void changeTechnology(){technologyDataChanged = technologyDataChanged == false ? true : false;}
+     //inhouse functions toggle whether the data is "new" data or still the same.
+    private void tempChanged(){temperatureChanged = !temperatureChanged;}
+    private void businessChanged(){businessDataChanged = !businessDataChanged; }
+    private void sportsChanged(){ sportsDataChanged = !sportsDataChanged; }
+    private void politicsChanged() {politicsDataChanged = !politicsDataChanged;}
+    private void technologyChanged(){technologyDataChanged = !technologyDataChanged;}
 
-    //getters
-    private boolean getHasTempChanged(Weatherable w){return temperatureChanged;}
-    private boolean getHasBusinessChanged(Businessable b){return businessDataChanged;}
-    private boolean getHasSportsChanged(Sportsable s){return sportsDataChanged;}
-    private boolean getHasPolticsChanged(){return politicsDataChanged;}
-    private boolean getHasTechnologyChanged(){return technologyDataChanged;}
 
-    public double getTemperature(Weatherable w){return getHasTempChanged(w) == true ? temperature : (double)-1000;}// Shouldn't be possible for anything to be -1000..
-                                                                                                                    // That vluae is used to say data hasn't changed.
-    public String getBusinessData(Businessable b){return getHasBusinessChanged(b) == true ? businessData : null;}
-    public String getSportsData(Sportsable s) {return getHasSportsChanged(s) == true ? sportsData : null;}
+    // setters to be accessed by the Observable
+    public void setTempData(double temperature){this.temperature = temperature; tempChanged();}
+    public void setBusinessData(String data){this.businessData = data; businessChanged();}
+    public void setSportsData(String data){this.sportsData = data; sportsChanged();}
+    public void setPoliticsData(String data) {this.politicsData = data; politicsChanged();}
+    public void setTechnologyData(String data){this.technologyData = data; technologyChanged();}
+
+
+
+
+    //getters inHouse functions..
+    private boolean hasTempChanged(IWeatherable w){return temperatureChanged;}
+    private boolean hasBusinessChanged(IBusinessable b){return businessDataChanged;}
+    private boolean hasSportsChanged(ISportsable s){return sportsDataChanged;}
+    private boolean hasPoliticsChanged(IPoliticable p){return politicsDataChanged;}
+    private boolean hasTechnologyChanged(ITechnologable t){return technologyDataChanged;}
+
+    // getters to be accessed by the Observable.
+    public double getTemperature(IWeatherable w){return hasTempChanged(w) ? temperature : (double)-1000;}// Shouldn't be possible for anything to be -1000(not able to use null)
+    public String getBusinessData(IBusinessable b){return hasBusinessChanged(b)? businessData : null;}
+    public String getSportsData(ISportsable s) {return hasSportsChanged(s)? sportsData : null;}
+    public String getPoliticsData(IPoliticable p){return hasPoliticsChanged(p)? politicsData : null;}
+    public String getTechnologyData(ITechnologable t){return hasTechnologyChanged(t)? technologyData : null;}
+
 
 
 

@@ -4,7 +4,7 @@
 import java.util.Observable;
 import java.util.Observer;
 
-public class WeatherWidget implements Observer, DisplayData, Weatherable {
+public class WeatherWidget implements Observer, DisplayData, IWeatherable {
 
     Observable subject;
     private double temperature;
@@ -18,7 +18,7 @@ public class WeatherWidget implements Observer, DisplayData, Weatherable {
 
     public void display()
     {
-        System.out.println(String.format("The Current temperature is %d degrees F",temperature));
+        System.out.println(String.format("WeatherWidget- The Current temperature is %f degrees F\n",temperature));
     }
 
 
@@ -27,7 +27,8 @@ public class WeatherWidget implements Observer, DisplayData, Weatherable {
         if(observable instanceof AJC)
         {
             AJC ajc = (AJC)observable;
-
+            temperature = ajc.getWeather(this); // must be weatherable to grab data. Maybe make this polymorphic somehow?
+            display();
         }
     }
 }
