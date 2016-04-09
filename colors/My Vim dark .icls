@@ -471,6 +471,12 @@
         <option name="EFFECT_TYPE" value="1" />
       </value>
     </option>
+    <option name="GROOVY_KEYWORD">
+      <value>
+        <option name="FOREGROUND" value="c5d44f" />
+        <option name="FONT_TYPE" value="1" />
+      </value>
+    </option>
     <option name="HYPERLINK_ATTRIBUTES">
       <value>
         <option name="FOREGROUND" value="287bde" />
